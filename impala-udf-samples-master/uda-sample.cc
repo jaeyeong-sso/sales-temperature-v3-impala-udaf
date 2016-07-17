@@ -15,6 +15,7 @@
 #include "uda-sample.h"
 #include <assert.h>
 #include <sstream>
+#include <math.h>
 
 using namespace impala_udf;
 using namespace std;
@@ -83,7 +84,7 @@ StringVal AvgSalesVolumeFinalize(FunctionContext* context, const StringVal& val)
     result = StringVal::null();
   } else {
     // Copies the result to memory owned by Impala
-    result = ToStringVal(context, avg->sum / avg->count);
+    result = ToStringVal(context, round(avg->sum / avg->count));
   }
   context->Free(val.ptr);
   return result;
